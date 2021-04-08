@@ -2,12 +2,14 @@ export default {
     data: function () {
         return {
             priceToFound: 0,
-            hitMax: 5
+            hitMax: 5,
+            expirationTime: 2,
+            mode: 1
         };
     },
     methods: {
         isOkForPlay: function () {
-            if (this.priceToFound !== 0 && this.hitMax !== 0) return true
+            if ((this.expirationTime && !isNaN(this.expirationTime)) && this.hitMax !== 0) return true
         },
         emitConfig: function () {
             if (!this.isOkForPlay()) {
@@ -18,8 +20,13 @@ export default {
                 })
                 return;
             }
+            if(this.priceToFound === 0){
+                this.priceToFound = Math.floor(Math.random() * 100)
+            }
             this.$emit('emitConfig', {
+                mode: +this.mode,
                 priceToFound: this.priceToFound,
+                expirationTime: this.expirationTime * 60,
                 hitMax: this.hitMax,
             })
         },
