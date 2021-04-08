@@ -1,17 +1,42 @@
 <template>
   <div id="app">
-    <Config  @emitConfig="setConfig"></Config>
+    <Menu>
+      <b-menu-list label="Configuration Game">
+        <Config @emitConfig="setConfig"></Config>
+      </b-menu-list>
+      <hr />
+    </Menu>
+    <Game v-if="config" @endGame="setGameCurrent()" :config="config"></Game>
   </div>
 </template>
 
 <script>
-import Config from './components/Config/Config.vue'
+import Config from "./components/Config/Config.vue";
+import Game from "./components/Game/Game.vue";
+import Menu from "./components/Menu/Menu.vue";
+
 export default {
-  name: 'App',
+  data: function () {
+    return {
+      config: null,
+      gameCurrent: false
+    }
+  },
+  name: "App",
   components: {
-    Config
-  }
-}
+    Config,
+    Game,
+    Menu
+  },
+  methods: {
+    setConfig: function (config) {
+      this.config = config;
+    },
+    setGameCurrent: function () {
+      this.gameCurrent = false;
+    }
+  },
+};
 </script>
 
 <style>
