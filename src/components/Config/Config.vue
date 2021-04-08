@@ -6,6 +6,9 @@
     <b-field>
       <b-radio v-model="mode" native-value="0" type="is-info"> Hit </b-radio>
     </b-field>
+    <b-field>
+      <b-radio v-model="mode" native-value="2" type="is-warning"> Timer + Hit </b-radio>
+    </b-field>
     <div class="split">
       <b-field label="Price to find">
         <b-numberinput
@@ -30,12 +33,12 @@
         ></b-numberinput>
       </b-field>
     </div>
-    <div v-if="+mode === 1" class="split">
+    <div v-if="+mode === 1 || +mode === 2" class="split">
       <b-field label="Timer (minutes)">
         <b-input v-model="expirationTime"></b-input>
       </b-field>
     </div>
-    <div v-else-if="+mode === 0" class="split">
+    <div v-if="+mode === 0 || +mode === 2" class="split">
       <b-field label="Hit">
         <b-numberinput
           controls-position="compact"

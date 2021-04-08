@@ -25,8 +25,11 @@ export default {
     },
     watch: {
         timerExpired: function (timerExpired) {
-            if (timerExpired)
+            if (timerExpired){
                 this.isWin = this.possibilities.lose
+                this.$emit('endGame', true)
+                this.isGameFinish()
+            }
         },
     },
     methods: {
@@ -57,6 +60,10 @@ export default {
                     this.checkTimer(isCorrect)
                     break;
                 case 0:
+                    this.checkHit(isCorrect)
+                    break;
+                case 2:
+                    this.checkTimer(isCorrect)
                     this.checkHit(isCorrect)
                     break;
             }
@@ -113,11 +120,9 @@ export default {
         },
         startRound: function () {
             this.resetValue()
-            switch (this.config.mode) {
-                case 1:
-                    this.startTimer(this.config.expirationTime, document.querySelector("#time"));
-                    break;
-            }
+            if (this.config.mode === 1 || this.config.mode === 2)
+                this.startTimer(this.config.expirationTime, document.querySelector("#time"));
+                    
         },
     },
 }

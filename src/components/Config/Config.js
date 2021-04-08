@@ -11,15 +11,20 @@ export default {
     },
     methods: {
         isOkForPlay: function () {
-            switch(this.mode){
+            console.log(this.$modes)
+            switch(+this.mode){
                 case this.$modes.hit:
-                        return !isNaN(this.hitMax) && this.hitMax > 0 && !isNaN(this.priceToFound);
+                        return !isNaN(this.hitMax) && this.hitMax > 0 && !isNaN(this.priceToFound) && (this.rangeMin < this.rangeMax);
                 case this.$modes.timer: 
-                        return !isNaN(this.expirationTime) && this.expirationTime > 0 && !isNaN(this.priceToFound);
+                        return !isNaN(this.expirationTime) && this.expirationTime > 0 && !isNaN(this.priceToFound) && (this.rangeMin < this.rangeMax);
+                case this.$modes.both: 
+                        return !isNaN(this.expirationTime) && this.expirationTime > 0 && !isNaN(this.priceToFound) && (this.rangeMin < this.rangeMax) && !isNaN(this.hitMax) && this.hitMax > 0;
             }
         },
         emitConfig: function () {
-            if (!this.isOkForPlay()) {
+            const tmp = !this.isOkForPlay()
+            console.log(tmp);
+            if (tmp) {
                 this.$buefy.toast.open({
                     message: 'Warning: Configuration incorrect',
                     type: 'is-danger',
