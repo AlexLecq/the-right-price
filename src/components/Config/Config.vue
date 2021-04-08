@@ -14,6 +14,22 @@
         ></b-numberinput>
       </b-field>
     </div>
+    <div class="split">
+      <b-field label="Minimum random">
+        <b-numberinput
+          controls-position="compact"
+          v-model="rangeMin"
+        ></b-numberinput>
+      </b-field>
+    </div>
+    <div class="split">
+      <b-field label="Maximum random">
+        <b-numberinput
+          controls-position="compact"
+          v-model="rangeMax"
+        ></b-numberinput>
+      </b-field>
+    </div>
     <div v-if="+mode === 1" class="split">
       <b-field label="Timer (minutes)">
         <b-input v-model="expirationTime"></b-input>

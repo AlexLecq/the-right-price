@@ -5,7 +5,10 @@ import 'buefy/dist/buefy.css'
 Vue.use(Buefy)
 
 Vue.config.productionTip = false
-
+Vue.prototype.$modes = {
+  hit: 0,
+  timer: 1
+}
 new Vue({
   render: h => h(App),
 }).$mount('#app')

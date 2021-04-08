@@ -4,12 +4,19 @@ export default {
             priceToFound: 0,
             hitMax: 5,
             expirationTime: 2,
-            mode: 1
+            mode: this.$modes.hit,
+            rangeMin: 0,
+            rangeMax: 100
         };
     },
     methods: {
         isOkForPlay: function () {
-            if ((this.expirationTime && !isNaN(this.expirationTime)) && this.hitMax !== 0) return true
+            switch(this.mode){
+                case this.$modes.hit:
+                        return !isNaN(this.hitMax) && this.hitMax > 0 && !isNaN(this.priceToFound);
+                case this.$modes.timer: 
+                        return !isNaN(this.expirationTime) && this.expirationTime > 0 && !isNaN(this.priceToFound);
+            }
         },
         emitConfig: function () {
             if (!this.isOkForPlay()) {
@@ -21,7 +28,8 @@ export default {
                 return;
             }
             if(this.priceToFound === 0){
-                this.priceToFound = Math.floor(Math.random() * 100)
+                this.priceToFound = Math.floor(Math.random() * (this.rangeMax - this.rangeMin) + this.rangeMin)
+                console.log(this.priceToFound)
             }
             this.$emit('emitConfig', {
                 mode: +this.mode,

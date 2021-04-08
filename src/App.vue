@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <Menu>
+    <Menu v-if="!gameCurrent">
       <b-menu-list label="Configuration Game">
         <Config @emitConfig="setConfig"></Config>
       </b-menu-list>
       <hr />
     </Menu>
-    <Game v-if="config" @endGame="setGameCurrent()" :config="config"></Game>
+    <Game v-if="config" @endGame="setGameCurrent" :config="config"></Game>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default {
   methods: {
     setConfig: function (config) {
       this.config = config;
+      this.gameCurrent = true;
     },
     setGameCurrent: function () {
       this.gameCurrent = false;

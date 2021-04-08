@@ -25,4 +25,14 @@
   margin-top: 2em;
   margin-left: 1em;
 }
+
+.inline {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.inline h3{
+  margin-right: 1em;
+}
+
 </style>

@@ -35,6 +35,15 @@ export default {
             else if (this.priceAttempt > this.config.priceToFound) return this.possibilities.less;
             else if (this.priceAttempt < this.config.priceToFound) return this.possibilities.more;
         },
+        isGameFinish: function () {
+            this.$buefy.dialog.confirm({
+                title: 'Game finish',
+                message: this.isWin === this.possibilities.win ? 'It\'s win !' : 'It\'s lose...',
+                onConfirm: () => {}
+            })
+
+            this.$emit('endGame', true)
+        },
         isRoundFinish: function () {
             return [this.possibilities.win, this.possibilities.lose].indexOf(this.isWin) !== -1
         },
@@ -59,13 +68,7 @@ export default {
                 this.isWin = isCorrect
             } else {
                 this.isWin = isCorrect === this.possibilities.win ? this.possibilities.win : this.possibilities.lose
-                this.$buefy.dialog.confirm({
-                    title: 'Game finish',
-                    message: this.isWin === this.possibilities.win ? 'It\'s win !' : 'It\'s lose...',
-                    onConfirm: () => {
-                        this.$emit('endGame', true)
-                    }
-                })
+                this.isGameFinish()
             }
         },
         checkTimer: function (isCorrect) {
@@ -107,14 +110,14 @@ export default {
             this.timer = null
             this.hitPlayer = 1
             this.timerExpired = false
-          },
+        },
         startRound: function () {
             this.resetValue()
             switch (this.config.mode) {
-              case 1:
-                this.startTimer(this.config.expirationTime, document.querySelector("#time"));
-                break;
+                case 1:
+                    this.startTimer(this.config.expirationTime, document.querySelector("#time"));
+                    break;
             }
-          },
+        },
     },
 }
